@@ -1,0 +1,26 @@
+!Config
+targets:
+- chrome_default: &chrome_default
+    browser: chrome
+    profile: default
+- chrome_1: &chrome_1
+    browser: chrome
+    profile: Profile 1
+- chrome_2: &chrome_2
+    browser: chrome
+    profile: Profile 2
+- ff1: &ff1
+    browser: firefox
+    profile: default
+
+rules:
+- url_pattern: "*github.com/*"
+  pattern_type: ant
+  target: *chrome_1
+- url_pattern: ".+gitlab.com/.+"
+  pattern_type: regex
+  target: *chrome_2
+- url_pattern: "*gmail.com"
+  target: *ff1
+
+default_target: *chrome_default
