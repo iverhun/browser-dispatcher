@@ -10,9 +10,17 @@ function list_profiles() {
 function open_in_profile () {
 	profile=$1
 	url=$2
-	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="${profile}" ${url} >> /dev/null &
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="${profile}" "${url}" >> /dev/null &
 }
 
-# TODO: parse browser-config.yml and determine profile automatically
+result=`./browser_resolver.py $1 ../config/browser-config.yml`
 
-open_in_profile Default $1
+mapfile -t arr <<< "$result"
+
+browser=${arr[0]}
+profile=${arr[1]}
+
+echo "Browser: ${browser}"
+echo "Profile: ${profile}"
+
+open_in_profile "${profile}" "$1"

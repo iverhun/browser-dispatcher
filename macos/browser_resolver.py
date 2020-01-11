@@ -7,7 +7,7 @@ from pattern_matcher import PatternMatcher
 
 
 # create logger
-logger = logging.getLogger('config_parser.py')
+logger = logging.getLogger('browser_resolver.py')
 
 
 def _open(config_file):
@@ -28,13 +28,13 @@ def _process(url, config):
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format='%(message)s')
-    # url = sys.argv[1]
-    # config_file_path = sys.argv[2]
+    url = sys.argv[1]
+    config_file_path = sys.argv[2]
 
     # TODO: normalize URL (remove trailing slashes, etc)
 
-    url = 'https://gmail.com'
-    config_file_path = '../config/browser-config.yml'
+    # url = 'https://github.com/'
+    # config_file_path = '../config/browser-config.yml'
 
     config = _open(config_file_path)
     print(_process(url, config))
