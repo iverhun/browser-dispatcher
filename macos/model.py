@@ -1,6 +1,13 @@
 import yaml
 
 
+def config_constructor(loader, node):
+    objects = loader.construct_mapping(node, deep=True)
+    rules = map(Rule, objects['rules'])
+    targets = map(TargetSpec, objects['targets'])
+    return Config(Target(objects['default_target']), targets, rules)
+
+
 class Config(yaml.YAMLObject):
     yaml_tag = '!Config'
 

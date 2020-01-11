@@ -2,36 +2,16 @@
 
 import logging
 import sys
-import fnmatch
-import re
 from model import *
+from pattern_matcher import PatternMatcher
+
 
 # create logger
-logger = logging.getLogger('configparser.py')
-
-
-class PatternMatcher:
-    def __init__(self):
-        pass
-
-    @staticmethod
-    def ant(url, pattern):
-        return fnmatch.fnmatch(url, pattern)
-
-    @staticmethod
-    def regex(url, pattern):
-        return re.match(pattern, url) is not None
-
-
-def _config_constructor(loader, node):
-    objects = loader.construct_mapping(node, deep=True)
-    rules = map(Rule, objects['rules'])
-    targets = map(TargetSpec, objects['targets'])
-    return Config(Target(objects['default_target']), targets, rules)
+logger = logging.getLogger('config_parser.py')
 
 
 def _open(config_file):
-    yaml.add_constructor('!Config', _config_constructor)
+    yaml.add_constructor('!Config', config_constructor)
     with open(config_file) as fp:
         return yaml.full_load(fp)
 
@@ -57,6 +37,4 @@ if __name__ == "__main__":
     config_file_path = '../config/browser-config.yml'
 
     config = _open(config_file_path)
-    rules = config.rules
-    default_target = config.default_target
     print(_process(url, config))
