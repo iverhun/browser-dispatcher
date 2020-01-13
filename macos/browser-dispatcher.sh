@@ -8,9 +8,23 @@ function list_profiles() {
 }
 
 function open_in_profile () {
-	profile=$1
-	url=$2
+	browser=$1
+	profile=$2
+	url=$3
 	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="${profile}" "${url}" >> /dev/null &
+}
+
+function open_incognito () {
+	browser=$1
+	url=$2
+
+	/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito "${url}" >> /dev/null &
+}
+
+function open() {
+  browser=$1
+	profile=$2
+	url=$3
 }
 
 result=`./browser_resolver.py $1 ../config/browser-config.yml`
@@ -19,8 +33,10 @@ mapfile -t arr <<< "$result"
 
 browser=${arr[0]}
 profile=${arr[1]}
+incognito=${arr[2]}
 
 echo "Browser: ${browser}"
 echo "Profile: ${profile}"
+echo "Incognoto: ${incognito}"
 
 open_in_profile "${profile}" "$1"

@@ -4,7 +4,7 @@ import yaml
 def config_constructor(loader, node):
     objects = loader.construct_mapping(node, deep=True)
     rules = map(Rule, objects['rules'])
-    targets = map(TargetSpec, objects['targets'])
+    targets = map(Target, objects['targets'])
     return Config(Target(objects['default_target']), targets, rules)
 
 
@@ -20,20 +20,14 @@ class Config(yaml.YAMLObject):
         return "Config(default-target: %s)" % self.default_target
 
 
-class TargetSpec:
-    def __init__(self, spec):
-        self.name = next(iter(spec))
-        self.target = Target(spec[self.name])
-
-
 class Target:
     def __init__(self, props):
         self.browser = props['browser']
-        self.profile = props['profile']
+        self.profile = props.get('profile', 'Default')
+        self.incognito = props.get('incognito', False)
 
     def __str__(self):
-        return "Target(browser: {}, profile: {})"\
-            .format(self.browser, self.profile)
+        return '{}\n{}\n{}'.format(self.browser, self.profile, self.incognito)
 
 
 class Rule:

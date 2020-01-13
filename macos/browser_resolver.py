@@ -10,20 +10,20 @@ from pattern_matcher import PatternMatcher
 logger = logging.getLogger('browser_resolver.py')
 
 
-def _open(config_file):
+def load_yaml_config(config_file):
     yaml.add_constructor('!Config', config_constructor)
     with open(config_file) as fp:
         return yaml.full_load(fp)
 
 
-def _process(url, config):
+def process(url, config):
     target = config.default_target
     for rule in config.rules:
         if getattr(PatternMatcher, rule.pattern_type)(url, rule.url_pattern):
             target = rule.target
             break
 
-    return '{}\n{}'.format(target.browser, target.profile)
+    return target
 
 
 if __name__ == "__main__":
@@ -33,8 +33,6 @@ if __name__ == "__main__":
 
     # TODO: normalize URL (remove trailing slashes, etc)
 
-    # url = 'https://github.com/'
-    # config_file_path = '../config/browser-config.yml'
+    config = load_yaml_config(config_file_path)
 
-    config = _open(config_file_path)
-    print(_process(url, config))
+    print(process(url, config))
