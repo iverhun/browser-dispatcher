@@ -1,6 +1,6 @@
 class Target:
     def __init__(self, props):
-        self.browser = props['browser']
+        self.browser = props['browser'].lower()
         self.profile = props.get('profile', 'Default')
         self.incognito = props.get('incognito', False)
 
