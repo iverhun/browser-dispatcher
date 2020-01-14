@@ -11,6 +11,7 @@ targets:
   profile: Profile 2
 - &chrome_incognito
   browser: chrome
+  profile: Default
   incognito: true
 - &ff1
   browser: firefox

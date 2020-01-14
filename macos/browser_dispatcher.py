@@ -24,8 +24,8 @@ def _chrome_command(target, url):
             .format(target.profile, url)
 
     def chrome_incognito_command():
-        return '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito "{}" >> /dev/null &'\
-            .format(url)
+        return '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="{}" --incognito "{}" >> /dev/null &'\
+            .format(target.profile, url)
 
     return (chrome_incognito_command if target.incognito else chrome_profile_command)()
 
