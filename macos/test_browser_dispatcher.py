@@ -1,7 +1,7 @@
 from unittest import TestCase
 
+from browser.browsers import browser
 from config.config_processor import ConfigProcessor
-import browser_dispatcher
 
 
 class Test(TestCase):
@@ -14,14 +14,14 @@ class Test(TestCase):
         target = self.config.target(url)
 
         with self.assertRaises(Exception) as context:
-            browser_dispatcher.command(target, url)
+            browser(target, url).command()
 
-        self.assertTrue('Unsupported Browser: firefox' in context.exception)
+        self.assertTrue('Unsupported Browser: firefox' in str(context.exception))
 
     def test_chrome_profile1(self):
         url = 'http://github.com/johndoe'
         target = self.config.target(url)
-        command = browser_dispatcher.command(target, url)
+        command = browser(target, url).command()
         self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Profile 1" "http://github.com/johndoe" >> /dev/null &')
 
     def test_default_profile(self):
@@ -29,12 +29,12 @@ class Test(TestCase):
         target = self.config.target(url)
 
         with self.assertRaises(Exception) as context:
-            browser_dispatcher.command(target, url)
+            browser(target, url).command()
 
-        self.assertTrue('Unsupported Browser: firefox' in context.exception)
+        self.assertTrue('Unsupported Browser: firefox' in str(context.exception))
 
     def test_chrome_incognito(self):
         url = 'http://secret.example.com'
         target = self.config.target(url)
-        command = browser_dispatcher.command(target, url)
+        command = browser(target, url).command()
         self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default" --incognito "http://secret.example.com" >> /dev/null &')
