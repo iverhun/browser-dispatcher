@@ -1,0 +1,25 @@
+!Config
+targets:
+- &default
+  browser: chrome
+  profile: Default
+- &host
+  browser: chrome
+  profile: Profile 1
+- &ip
+  browser: chrome
+  profile: Profile 2
+
+
+rules:
+- hosts:
+  - www.host1.com
+  - host2.com
+  - host3.com:3000
+  target: *host
+
+- hosts:
+  - 192.168.0.100
+  - 192.168.0.101:4000
+  target: *ip
+default_target: *default

@@ -7,7 +7,7 @@ import browser_dispatcher
 class Test(TestCase):
 
     def setUp(self):
-        self.config = ConfigProcessor('../config/test-browser-config.yml')
+        self.config = ConfigProcessor('config/test-browser-config.yml')
 
     def test_firefox_default(self):
         url = 'http://fox.example.com'
@@ -37,4 +37,4 @@ class Test(TestCase):
         url = 'http://secret.example.com'
         target = self.config.target(url)
         command = browser_dispatcher.command(target, url)
-        self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --incognito "http://secret.example.com" >> /dev/null &')
+        self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default" --incognito "http://secret.example.com" >> /dev/null &')

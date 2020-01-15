@@ -1,5 +1,6 @@
 import re
 import fnmatch
+from urlparse import urlparse
 
 
 class PatternMatcher:
@@ -13,3 +14,17 @@ class PatternMatcher:
     @staticmethod
     def regex(url, pattern):
         return re.match(pattern, url) is not None
+
+    @staticmethod
+    def hosts(url, hosts):
+        url_details = urlparse(url)
+        hostname = url_details.hostname
+
+        if hostname in hosts:
+            return True
+
+        if url_details.port:
+            if (hostname + ":" + str(url_details.port)) in hosts:
+                return True
+
+        return False

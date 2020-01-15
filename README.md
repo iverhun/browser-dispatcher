@@ -6,11 +6,44 @@
 3. `pip install PyYAML`
 4. `pip install pyinstaller`
 1. `PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.3`
-`
 
 
 ## Configuration
+
+### Targets
 TODO
+
+### Rules
+The rules are defined in the `$HOME/.browser-dispatcher/config.yml` file as elements of the `rules` array.
+There are several types of rules. 
+
+#### Pattern-based rules
+##### Ant-like rules
+TODO
+
+##### Regular expression rules 
+TODO
+
+#### Host rules
+You should use this type of rule if you need **exact match** of the host name, IP address and optionally port. 
+The rule object has 2 properties:
+1. collection of `hosts`
+1. reference to the desired `target` 
+
+Example:
+
+```yaml
+- hosts:
+  - www.host1.com
+  - host2.com
+  - host3.com:3000
+  target: *host
+- hosts:
+  - 192.168.0.100
+  - 192.168.0.101:4000
+  target: *ip
+```
+
 
 ## Build from sources
 ### MacOS
