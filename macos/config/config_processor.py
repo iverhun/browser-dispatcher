@@ -15,9 +15,22 @@ def _rule_constructor(props):
 
 def _config_constructor(loader, node):
     objects = loader.construct_mapping(node, deep=True)
-    rules = map(_rule_constructor, objects['rules'])
+    rules = map(_rule_constructor, _get_or_default(objects, 'rules', []))
     targets = map(Target, objects['targets'])
     return Config(Target(objects['default_target']), targets, rules)
+
+
+def _get_or_default(dict, key, default):
+    """
+    :param dict: the dictionary to look up in
+    :param key: the key to look up
+    :param default: the value to return if the key doesn't exist ot if it's value is None
+    :return: value mapped by the key if the key exists and the value is no None. default otherwise.
+    """
+    if key in dict.keys():
+        return dict.get(key) if dict.get(key) is not None else default
+    else:
+        return default
 
 
 class ConfigProcessor:
