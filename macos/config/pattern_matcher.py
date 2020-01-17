@@ -20,6 +20,9 @@ class PatternMatcher:
         url_details = urlparse(url)
         hostname = url_details.hostname
 
+        if hostname.startswith("www."):
+            hostname = hostname[4:]
+
         if hostname in hosts:
             return True
 

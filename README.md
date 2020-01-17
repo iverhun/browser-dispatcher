@@ -38,7 +38,7 @@ Example:
 
 ```yaml
 - hosts:
-  - www.host1.com
+  - host1.com
   - host2.com
   - host3.com:3000
   target: *host
