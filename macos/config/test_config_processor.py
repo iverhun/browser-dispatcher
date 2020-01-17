@@ -1,10 +1,12 @@
-from unittest import TestCase
+import os
+import unittest
 from config.config_processor import ConfigProcessor
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
     def setUp(self):
-        self.config = ConfigProcessor('test-browser-config.yml')
+        config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test-browser-config.yml')
+        self.config = ConfigProcessor(config_file)
 
     def test_firefox_default(self):
         result = self.config.target('http://fox.example.com')
@@ -35,9 +37,10 @@ class Test(TestCase):
         self.assertTrue(result.incognito)
 
 
-class HostsRuleTest(TestCase):
+class HostsRuleTest(unittest.TestCase):
     def setUp(self):
-        self.config = ConfigProcessor('test-hosts-browser-config.yml')
+        config_file = os.path.join(os.path.dirname(os.path.realpath(__file__)), 'test-hosts-browser-config.yml')
+        self.config = ConfigProcessor(config_file)
 
     def test_by_www_host(self):
         result = self.config.target('http://w3.host2.com')
@@ -83,3 +86,7 @@ class HostsRuleTest(TestCase):
         result = self.config.target('http://www.myhost2.com')
 
         self.assertEqual(result.profile, 'Default')
+
+
+if __name__ == '__main__':
+    unittest.main()

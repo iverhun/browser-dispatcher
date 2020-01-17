@@ -1,10 +1,10 @@
-from unittest import TestCase
+import unittest
 
 from browser.browsers import browser
 from config.config_processor import ConfigProcessor
 
 
-class Test(TestCase):
+class Test(unittest.TestCase):
 
     def setUp(self):
         self.config = ConfigProcessor('config/test-browser-config.yml')
@@ -38,3 +38,7 @@ class Test(TestCase):
         target = self.config.target(url)
         command = browser(target, url).command()
         self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default" --incognito "http://secret.example.com" >> /dev/null &')
+
+
+if __name__ == '__main__':
+    unittest.main()
