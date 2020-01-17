@@ -1,9 +1,10 @@
 import yaml
 
-from .model.rule import Rule, HostsRule
+from .model.rule import Rule, HostsRule, BaseRule
 from .model.target import Target
 from .model.config import Config
 from .pattern_matcher import PatternMatcher
+from osascripts import osa
 
 
 def _rule_constructor(props):
@@ -38,11 +39,18 @@ class ConfigProcessor:
     def __init__(self, config_file):
         yaml.add_constructor(Config.yaml_tag, _config_constructor)
         with open(config_file) as fp:
-            self.config = yaml.full_load(fp)
+            self.config: Config = yaml.full_load(fp)
+
+    def _select_profile(self, target: Target):
+        profiles = map(lambda t: "{} - {}".format(t.browser, t.profile), self.config.targets)
+        return target if not target.select_profile else osa.read_profile_selector_dialog('osascripts/choose.scpt', profiles)
 
     def target(self, url):
         for rule in self.config.rules:
             if rule.apply(url, getattr(PatternMatcher, rule.pattern_type)):
-                return rule.target
+                return self._select_profile(rule.target)
 
-        return self.config.default_target
+        # TODO: if the rule says to show profile selector dialog....
+        # TODO: ...
+
+        return self._select_profile(self.config.default_target)
