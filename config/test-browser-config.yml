@@ -1,0 +1,39 @@
+!Config
+targets:
+- &chrome_default
+  browser: chrome
+  profile: Default
+- &chrome_1
+  browser: chrome
+  profile: Profile 1
+- &chrome_2
+  browser: chrome
+  profile: Profile 2
+- &chrome_incognito
+  browser: chrome
+  profile: Default
+  incognito: true
+- &ff1
+  browser: firefox
+  profile: Default
+
+rules:
+- url_pattern: "*github.com/*"
+  pattern_type: ant
+  target: *chrome_1
+- url_pattern: ".+gitlab.com/.+"
+  pattern_type: regex
+  target: *chrome_2
+- url_pattern: "*gmail.com"
+  target: *chrome_default
+- url_pattern: "*secret.example.com"
+  target: *chrome_incognito
+- url_pattern: "*fox.example.com"
+  target: *ff1
+
+- hosts:
+  - host1.com
+  - host2.com
+  - host3.com:3000
+  target: *chrome_default
+default_target: *ff1

@@ -30,6 +30,9 @@ The rule object has 2 properties:
 1. collection of `hosts`
 1. reference to the desired `target` 
 
+Note that the domain names starting with `www.` are handled the same way it wouldn't contain the `www` prefix, i.e. the
+`www.example.com` is exactly the same as `example.com`   
+
 Example:
 
 ```yaml

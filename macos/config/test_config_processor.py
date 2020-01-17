@@ -40,7 +40,7 @@ class HostsRuleTest(TestCase):
         self.config = ConfigProcessor('test-hosts-browser-config.yml')
 
     def test_by_www_host(self):
-        result = self.config.target('http://www.host2.com')
+        result = self.config.target('http://w3.host2.com')
 
         self.assertEqual(result.profile, 'Default')
 
