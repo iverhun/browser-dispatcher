@@ -5,7 +5,7 @@ bundle: prepare
 prepare:
 	pip install -r requirements.txt
 
-test:
+test: prepare
     python -m unittest discover
 
 clean:
