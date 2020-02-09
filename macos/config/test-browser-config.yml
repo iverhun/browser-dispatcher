@@ -13,6 +13,15 @@ targets:
   browser: chrome
   profile: Default
   incognito: true
+- &chrome_guest
+  browser: chrome
+  profile: Default
+  guest: true
+- &chrome_incognito_guest
+  browser: chrome
+  profile: Default
+  guest: true
+  incognito: true
 - &ff1
   browser: firefox
   profile: Default
@@ -28,6 +37,10 @@ rules:
   target: *chrome_default
 - url_pattern: "*secret.example.com"
   target: *chrome_incognito
+- url_pattern: "*guest.example.com"
+  target: *chrome_guest
+- url_pattern: "*guest-not-incognito.example.com"
+  target: *chrome_incognito_guest
 - url_pattern: "*fox.example.com"
   target: *ff1
 

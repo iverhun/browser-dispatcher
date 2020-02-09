@@ -39,6 +39,17 @@ class Test(unittest.TestCase):
         command = browser(target, url).command()
         self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default" --incognito "http://secret.example.com" >> /dev/null &')
 
+    def test_chrome_guest(self):
+        url = 'http://my-guest.example.com'
+        target = self.config.target(url)
+        command = browser(target, url).command()
+        self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default" --bwsi "http://my-guest.example.com" >> /dev/null &')
+
+    def test_chrome_guest_not_incognito(self):
+        url = 'http://my-guest-not-incognito.example.com'
+        target = self.config.target(url)
+        command = browser(target, url).command()
+        self.assertEqual(command, '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="Default" --bwsi "http://my-guest-not-incognito.example.com" >> /dev/null &')
 
 if __name__ == '__main__':
     unittest.main()

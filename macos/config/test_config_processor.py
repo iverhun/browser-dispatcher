@@ -36,6 +36,21 @@ class Test(unittest.TestCase):
         self.assertEqual(result.profile, 'Default')
         self.assertTrue(result.incognito)
 
+    def test_chrome_guest(self):
+        result = self.config.target('http://my-guest.example.com')
+
+        self.assertEqual(result.browser, 'chrome')
+        self.assertEqual(result.profile, 'Default')
+        self.assertTrue(result.guest)
+
+    def test_chrome_guest_and_incognito(self):
+        result = self.config.target('http://my-guest-not-incognito.example.com')
+
+        self.assertEqual(result.browser, 'chrome')
+        self.assertEqual(result.profile, 'Default')
+        self.assertTrue(result.guest)
+        self.assertTrue(result.incognito)
+
 
 class HostsRuleTest(unittest.TestCase):
     def setUp(self):
