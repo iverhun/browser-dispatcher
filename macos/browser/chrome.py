@@ -17,7 +17,7 @@ class Chrome:
             .format(self.target.profile, self.url)
 
     def _open_guest(self):
-        return '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="{}" --bwsi "{}" >> /dev/null &'\
+        return '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="{}" --guest "{}" >> /dev/null &'\
             .format(self.target.profile, self.url)
 
     def _open_incognito(self):
