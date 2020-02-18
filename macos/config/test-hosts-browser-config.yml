@@ -13,8 +13,8 @@ targets:
 
 rules:
 - hosts:
-  - host1.com
-  - host2.com
+  - signin.aws.amazon.com
+  - console.aws.amazon.com
   - host3.com:3000
   target: *host
 

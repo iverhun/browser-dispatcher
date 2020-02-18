@@ -1,6 +1,6 @@
 import yaml
 
-from .model.rule import Rule, HostsRule
+from .model.rule import UrlRule, HostsRule
 from .model.target import Target
 from .model.config import Config
 from .pattern_matcher import PatternMatcher
@@ -10,7 +10,7 @@ def _rule_constructor(props):
     if props.get('hosts', None):
         return HostsRule(props)
     else:
-        return Rule(props)
+        return UrlRule(props)
 
 
 def _config_constructor(loader, node):
@@ -38,7 +38,7 @@ class ConfigProcessor:
     def __init__(self, config_file):
         yaml.add_constructor(Config.yaml_tag, _config_constructor)
         with open(config_file) as fp:
-            self.config = yaml.full_load(fp)
+            self.config: Config = yaml.full_load(fp)
 
     def target(self, url):
         for rule in self.config.rules:

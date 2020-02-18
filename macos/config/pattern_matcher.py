@@ -7,6 +7,13 @@ class PatternMatcher:
     def __init__(self):
         pass
 
+    def _strip_scheme(url):
+        url_details = urlparse(url)
+        scheme = "{}://".format(url_details.scheme)
+        url_details.scheme = ''
+
+        return url_details.geturl().replace(scheme, '', 1)
+
     @staticmethod
     def ant(url, pattern):
         return fnmatch.fnmatch(url, pattern)

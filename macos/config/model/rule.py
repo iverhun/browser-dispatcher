@@ -1,7 +1,7 @@
 from .target import Target
 
 
-class BaseRule:
+class Rule:
     def __init__(self, props):
         self.target = Target(props['target'])
 
@@ -9,11 +9,12 @@ class BaseRule:
         pass
 
 
-class Rule(BaseRule):
+class UrlRule(Rule):
     def __init__(self, props):
-        BaseRule.__init__(self, props)
+        Rule.__init__(self, props)
         self.url_pattern = props['url_pattern']
         self.pattern_type = props.get('pattern_type', 'ant')
+        self.ignore_scheme = props.get('retain_scheme', True)
 
     def __str__(self):
         return "Rule(url_pattern: {}, pattern_type: {}, target: {})"\
@@ -23,9 +24,9 @@ class Rule(BaseRule):
         return matcher(url, self.url_pattern)
 
 
-class HostsRule(BaseRule):
+class HostsRule(Rule):
     def __init__(self, props):
-        BaseRule.__init__(self, props)
+        Rule.__init__(self, props)
         self.hosts = props.get('hosts', None)
         self.pattern_type = 'hosts'
 
