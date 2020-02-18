@@ -6,7 +6,7 @@ prepare:
 	pip install -r requirements.txt
 
 test: prepare
-    python -m unittest discover
+	python -m unittest discover
 
 clean:
 	rm -rf build
