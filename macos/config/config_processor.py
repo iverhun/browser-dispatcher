@@ -4,6 +4,7 @@ from .model.rule import UrlRule, HostsRule
 from .model.target import Target
 from .model.config import Config
 from .pattern_matcher import PatternMatcher
+from .url_util import normalize_url
 
 
 def _rule_constructor(props):
@@ -42,7 +43,7 @@ class ConfigProcessor:
 
     def target(self, url):
         for rule in self.config.rules:
-            if rule.apply(url, getattr(PatternMatcher, rule.pattern_type)):
+            if rule.apply(normalize_url(url, rule.ignore_url_schema), getattr(PatternMatcher, rule.pattern_type)):
                 return rule.target
 
         return self.config.default_target

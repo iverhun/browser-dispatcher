@@ -4,6 +4,7 @@ from .target import Target
 class Rule:
     def __init__(self, props):
         self.target = Target(props['target'])
+        self.ignore_url_schema = props.get('ignore_url_schema', True)
 
     def apply(self, url, matcher):
         pass
@@ -14,7 +15,6 @@ class UrlRule(Rule):
         Rule.__init__(self, props)
         self.url_pattern = props['url_pattern']
         self.pattern_type = props.get('pattern_type', 'ant')
-        self.ignore_scheme = props.get('retain_scheme', True)
 
     def __str__(self):
         return "Rule(url_pattern: {}, pattern_type: {}, target: {})"\
