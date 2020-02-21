@@ -1,5 +1,6 @@
 import yaml
 
+from .model.default_settings import DefaultSettings
 from .model.rule import UrlRule, HostsRule
 from .model.target import Target
 from .model.config import Config
@@ -7,18 +8,19 @@ from .pattern_matcher import PatternMatcher
 from .url_util import normalize_url
 
 
-def _rule_constructor(props):
-    if props.get('hosts', None):
-        return HostsRule(props)
-    else:
-        return UrlRule(props)
-
-
 def _config_constructor(loader, node):
     objects = loader.construct_mapping(node, deep=True)
+    defaults = DefaultSettings(_get_or_default(objects, 'defaults', []))
+
+    def _rule_constructor(props):
+        if props.get('hosts', None):
+            return HostsRule(props, defaults)
+        else:
+            return UrlRule(props, defaults)
+
     rules = map(_rule_constructor, _get_or_default(objects, 'rules', []))
     targets = map(Target, objects['targets'])
-    return Config(Target(objects['default_target']), targets, rules)
+    return Config(targets, rules, defaults)
 
 
 def _get_or_default(dict, key, default):
@@ -46,4 +48,4 @@ class ConfigProcessor:
             if rule.apply(normalize_url(url, rule.ignore_url_schema), getattr(PatternMatcher, rule.pattern_type)):
                 return rule.target
 
-        return self.config.default_target
+        return self.config.defaults.target

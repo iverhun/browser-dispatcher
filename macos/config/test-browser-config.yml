@@ -50,4 +50,6 @@ rules:
   ignore_url_schema: False
   target: *chrome_2
 
-default_target: *ff1
+defaults:
+  target: *ff1
+  ignore_url_schema: True

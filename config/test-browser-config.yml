@@ -49,4 +49,6 @@ rules:
   - host2.com
   - host3.com:3000
   target: *chrome_default
-default_target: *ff1
+
+defaults:
+  target: *ff1

@@ -23,7 +23,8 @@ rules:
   pattern_type: ant
   target: *chrome_default
 
-default_target: *chrome_default
+defaults:
+  target: *ff1
 """
 
 
@@ -44,7 +45,8 @@ def init():
 
 if __name__ == "__main__":
     logging.basicConfig(level=logging.DEBUG, format='%(message)s')
-    url = sys.argv[1]
+    # url = sys.argv[1]
+    url = 'https://lohika.com'
 
     init()
     config = ConfigProcessor(path.join(os.getenv("HOME"), '.browser-dispatcher', 'config.yml'))

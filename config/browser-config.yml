@@ -29,4 +29,5 @@ rules:
 - url_pattern: "*secret.example.com"
   target: *chrome_incognito
 
-default_target: *ff1
+defaults:
+  target: *ff1

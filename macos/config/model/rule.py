@@ -2,17 +2,17 @@ from .target import Target
 
 
 class Rule:
-    def __init__(self, props):
+    def __init__(self, props, defaults):
         self.target = Target(props['target'])
-        self.ignore_url_schema = props.get('ignore_url_schema', True)
+        self.ignore_url_schema = props.get('ignore_url_schema', defaults.ignore_url_schema)
 
     def apply(self, url, matcher):
         pass
 
 
 class UrlRule(Rule):
-    def __init__(self, props):
-        Rule.__init__(self, props)
+    def __init__(self, props, defaults):
+        Rule.__init__(self, props, defaults)
         self.url_pattern = props['url_pattern']
         self.pattern_type = props.get('pattern_type', 'ant')
 
@@ -25,8 +25,8 @@ class UrlRule(Rule):
 
 
 class HostsRule(Rule):
-    def __init__(self, props):
-        Rule.__init__(self, props)
+    def __init__(self, props, defaults):
+        Rule.__init__(self, props, defaults)
         self.hosts = props.get('hosts', None)
         self.pattern_type = 'hosts'
 
