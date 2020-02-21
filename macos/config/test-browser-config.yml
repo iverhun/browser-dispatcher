@@ -30,7 +30,7 @@ rules:
 - url_pattern: "*github.com/*"
   pattern_type: ant
   target: *chrome_1
-- url_pattern: ".+gitlab.com/.+"
+- url_pattern: "gitlab.com/.+"
   pattern_type: regex
   target: *chrome_2
 - url_pattern: "*gmail.com"
@@ -43,5 +43,13 @@ rules:
   target: *chrome_incognito_guest
 - url_pattern: "*fox.example.com"
   target: *ff1
+- url_pattern: "http://schema.example.com/*"
+  ignore_url_schema: False
+  target: *chrome_1
+- url_pattern: "https://schema.example.com/*"
+  ignore_url_schema: False
+  target: *chrome_2
 
-default_target: *ff1
+defaults:
+  target: *ff1
+  ignore_url_schema: True

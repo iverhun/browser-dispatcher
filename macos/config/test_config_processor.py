@@ -63,7 +63,7 @@ class HostsRuleTest(unittest.TestCase):
         self.assertEqual(result.profile, 'Default')
 
     def test_by_host(self):
-        result = self.config.target('http://host2.com')
+        result = self.config.target('http://console.aws.amazon.com')
 
         self.assertEqual(result.profile, 'Profile 1')
 
@@ -83,7 +83,7 @@ class HostsRuleTest(unittest.TestCase):
         self.assertEqual(result.profile, 'Default')
 
     def test_by_host_and_port(self):
-        result = self.config.target('http://host2.com:3000/')
+        result = self.config.target('http://console.aws.amazon.com:3000/')
 
         self.assertEqual(result.profile, 'Profile 1')
 

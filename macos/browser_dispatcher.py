@@ -23,7 +23,8 @@ rules:
   pattern_type: ant
   target: *chrome_default
 
-default_target: *chrome_default
+defaults:
+  target: *ff1
 """
 
 

@@ -4,11 +4,11 @@ import yaml
 class Config(yaml.YAMLObject):
     yaml_tag = '!Config'
 
-    def __init__(self, default_target=None, targets=None, rules=None):
-        self.default_target = default_target
+    def __init__(self, targets=None, rules=None, defaults=None):
+        self.defaults = defaults
         self.targets = targets
         self.rules = rules
 
     def __str__(self):
-        return "Config(default-target: %s)" % self.default_target
+        return "Config(defaults: %s)" % self.defaults
 
