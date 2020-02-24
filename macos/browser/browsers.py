@@ -1,4 +1,5 @@
 from .chrome import Chrome
+from .dev_null import DevNull
 
 
 class Browsers:
@@ -8,6 +9,10 @@ class Browsers:
     @staticmethod
     def chrome(target, url):
         return Chrome(target, url)
+
+    @staticmethod
+    def devnull(target, url):
+        return DevNull(target, url)
 
 
 def browser(target, url):

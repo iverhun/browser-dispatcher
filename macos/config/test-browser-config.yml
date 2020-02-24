@@ -22,11 +22,15 @@ targets:
   profile: Default
   guest: true
   incognito: true
+- &devnull
+  browser: devnull
 - &ff1
   browser: firefox
   profile: Default
 
 rules:
+- url_pattern: "*bad-site.com*"
+  target: *devnull
 - url_pattern: "*github.com/*"
   pattern_type: ant
   target: *chrome_1
