@@ -130,6 +130,10 @@ dmypy.json
 
 .DS_Store
 
+#Icon
+AppIcon.iconset/
+AppIcon.icns
+
 # IDE
 .idea
 *.iml
