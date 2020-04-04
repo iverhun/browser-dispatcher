@@ -9,6 +9,7 @@ from config.config_processor import ConfigProcessor
 class Application:
 
     def __init__(self, config_file):
+        logging.getLogger('application').info("Config file: %s" % config_file)
         Application._init(config_file)
         self.config = ConfigProcessor(config_file)
 
