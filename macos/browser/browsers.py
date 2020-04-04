@@ -1,5 +1,6 @@
 from .chrome import Chrome
 from .dev_null import DevNull
+from .safari import Safari
 
 
 class Browsers:
@@ -9,6 +10,10 @@ class Browsers:
     @staticmethod
     def chrome(target, url):
         return Chrome(target, url)
+
+    @staticmethod
+    def safari(target, url):
+        return Safari(target, url)
 
     @staticmethod
     def devnull(target, url):
