@@ -1,54 +1,30 @@
 #!/usr/bin/env python
 
-import logging
+import logging.config
 import os
 from os import path
 import sys
 
-from browser.browsers import browser
-from browser.chrome import Chrome
-from config.config_processor import ConfigProcessor
-
-# create logger
-logger = logging.getLogger('browser_dispatcher')
-
-default_config = """!Config
-targets:
-- &chrome_default
-  browser: chrome
-  profile: Default
-
-rules:
-- url_pattern: "*example.com/*"
-  pattern_type: ant
-  target: *chrome_default
-
-defaults:
-  target: *ff1
-"""
+from application import Application
 
 
-def execute(target, url):
-    command_to_execute = browser(target, url).command()
-    logger.debug(command_to_execute)
-    os.system(command_to_execute)
+def _settings():
+    if os.getenv("DEV"):
+        return path.join('../config/browser-config.yml'), path.join('logging.conf')
+
+    return path.join(os.getenv("HOME"), '.browser-dispatcher', 'config.yml'), \
+           path.join(os.getenv("HOME"), '.browser-dispatcher', 'logging.conf')
 
 
-def init():
-    config_file = path.join(os.getenv("HOME"), '.browser-dispatcher', 'config.yml')
+def main():
+    config_file, logging_config_file = _settings()
 
-    if not path.exists(config_file):
-        os.makedirs(os.path.dirname(config_file), exist_ok=True)
-        with open(config_file, "w") as f:
-            f.write(default_config)
+    logging.config.fileConfig(logging_config_file)
+    try:
+        Application(config_file).run(sys.argv[1])
+    except Exception as e:
+        logging.critical(e, exc_info=True)
 
 
 if __name__ == "__main__":
-    logging.basicConfig(level=logging.DEBUG, format='%(message)s')
-    url = sys.argv[1]
-
-    init()
-    config = ConfigProcessor(path.join(os.getenv("HOME"), '.browser-dispatcher', 'config.yml'))
-    target = config.target(url)
-
-    execute(target, url)
+    main()
