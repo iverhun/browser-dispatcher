@@ -3,6 +3,7 @@ class Target:
         self.browser = props['browser'].lower()
         self.profile = props.get('profile', 'Default')
         self.incognito = props.get('incognito', False)
+        self.incognito = props.get('app', False)
         self.guest = props.get('guest', False)
 
     def __str__(self):
