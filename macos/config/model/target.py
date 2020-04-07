@@ -3,11 +3,13 @@ class Target:
         self.browser = props['browser'].lower()
         self.profile = props.get('profile', 'Default')
         self.incognito = props.get('incognito', False)
-        self.incognito = props.get('app', False)
+        self.app = props.get('app', False)
         self.guest = props.get('guest', False)
 
     def __str__(self):
         options = ""
+        if self.app:
+            options = " (Application)"
         if self.guest:
             options = " (Guest)"
         if self.incognito:
