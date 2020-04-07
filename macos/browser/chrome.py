@@ -19,7 +19,7 @@ class Chrome:
             .format(self.target.profile, self.url)
 
     def _open_app(self):
-        return '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="{}" --app "{}" >> /dev/null &'\
+        return '/Applications/Google\ Chrome.app/Contents/MacOS/Google\ Chrome --profile-directory="{}" --app=git s"{}" >> /dev/null &'\
             .format(self.target.profile, self.url)
 
     def _open_guest(self):
