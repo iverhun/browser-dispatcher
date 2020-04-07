@@ -7,4 +7,9 @@ class Target:
         self.guest = props.get('guest', False)
 
     def __str__(self):
-        return '{}\n{}\n{}\n{}'.format(self.browser, self.profile, self.guest, self.incognito)
+        options = ""
+        if self.guest:
+            options = " (Guest)"
+        if self.incognito:
+            options = " (Incognito)"
+        return '{} with {}{}'.format(self.browser.capitalize(), self.profile, options)
