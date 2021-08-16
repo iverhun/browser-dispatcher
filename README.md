@@ -1,11 +1,11 @@
 # browser-dispatcher
 
 ## Prerequisites
-1. Pyton 3
+1. Python 3
 2. PIP
 3. `pip install PyYAML`
 4. `pip install pyinstaller`
-1. `PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.3`
+1. `PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.9.6`
 
 
 ## Configuration
@@ -63,8 +63,8 @@ Example:
 # Developer notes
 * installing Python 3 on MacOS: 
 	* `brew install pyenv`
-	* `PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.7.3`
-	* `pyenv global 3.7.3`
+	* `PYTHON_CONFIGURE_OPTS="--enable-framework" pyenv install 3.9.6`
+	* `pyenv global 3.9.6`
 	* `$ echo -e 'if command -v pyenv 1>/dev/null 2>&1; then\n  eval "$(pyenv init -)"\nfi' >> ~/.bashrc`
 	* `python -V`
 	* `pip -V`

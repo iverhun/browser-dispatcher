@@ -3,8 +3,8 @@ build: clean test bundle archive
 archive:
 	tar -zcvf "dist/Browser Dispatcher.app.tar.gz" "dist/Browser Dispatcher.app"
 
-bundle: prepare
-	python -m PyInstaller --onefile --noconfirm --noconsole --clean --log-level=WARN --strip --osx-bundle-identifier=org.iverhun.BrowserDispatcher --icon=resources/AppIcon.icns --name="Browser Dispatcher" browser_dispatcher.py
+bundle: prepare iconset
+	python -m PyInstaller --onefile --noconfirm --noconsole --clean --log-level=WARN --strip --osx-bundle-identifier=org.iverhun.BrowserDispatcher --icon=build/AppIcon.icns --name="Browser Dispatcher" browser_dispatcher.py
 	cp -rp resources/Info.plist dist/Browser\ Dispatcher.app/Contents/
 
 iconset:
