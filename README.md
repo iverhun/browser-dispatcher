@@ -75,3 +75,5 @@ Example:
 * Converting a plist File from XML to Binary
 `plutil -convert binary1 Info.plist`
 
+# Troubleshooting
+1. 
